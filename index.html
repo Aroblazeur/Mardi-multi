@@ -20,7 +20,7 @@
 <div id="games"></div></div>
 <script>
 const API='https://mwnhzfmayqvvlcyozrmk.supabase.co/functions/v1/mardi-multi';
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]));
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 let voterKey=localStorage.getItem('mm_voter_key');if(!voterKey){voterKey=crypto.randomUUID();localStorage.setItem('mm_voter_key',voterKey)}
 let pseudo=localStorage.getItem('mm_pseudo')||'';let games=[];const pseudoEl=document.getElementById('pseudo');pseudoEl.value=pseudo;
 document.getElementById('savePseudo').onclick=()=>{pseudo=pseudoEl.value.trim();if(!pseudo)return alert('Entre un pseudo.');localStorage.setItem('mm_pseudo',pseudo);document.getElementById('pseudoStatus').textContent='Pseudo enregistré';setTimeout(()=>document.getElementById('pseudoStatus').textContent='',1500)};
