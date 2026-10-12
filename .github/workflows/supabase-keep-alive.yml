@@ -1,0 +1,29 @@
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: "17 6,14,22 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-keep-alive-mardi-multi
+  cancel-in-progress: false
+
+jobs:
+  database-read:
+    name: Read Mardi Multi database
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Query games through the existing API
+        shell: bash
+        run: |
+          set -euo pipefail
+          code="$(curl --silent --show-error --location --max-time 30 --retry 2 --retry-delay 5 --output /dev/null --write-out '%{http_code}' 'https://mwnhzfmayqvvlcyozrmk.supabase.co/functions/v1/mardi-multi/api/games?voter_key=keepalive')"
+          echo "Mardi Multi API returned HTTP ${code}"
+          if [[ "${code}" != 2* ]]; then
+            exit 1
+          fi
