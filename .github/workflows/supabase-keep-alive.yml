@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          code="$(curl --silent --show-error --location --max-time 30 --retry 2 --retry-delay 5 --output /dev/null --write-out '%{http_code}' 'https://mwnhzfmayqvvlcyozrmk.supabase.co/functions/v1/mardi-multi/api/games?voter_key=keepalive')"
+          code="$(curl --silent --show-error --location --max-time 30 --retry 5 --retry-all-errors --retry-delay 10 --output /dev/null --write-out '%{http_code}' 'https://mwnhzfmayqvvlcyozrmk.supabase.co/functions/v1/mardi-multi/api/games?voter_key=keepalive')"
           echo "Mardi Multi API returned HTTP ${code}"
           if [[ "${code}" != 2* ]]; then
             exit 1
